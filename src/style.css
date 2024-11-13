@@ -1,110 +1,69 @@
-/* Grundlayout */
-* {
-  margin: 0;
-  padding: 0;
+/* Allgemeine Stilvorgaben für eine moderne Benutzeroberfläche */
+body {
+  font-family: Arial, sans-serif;
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  background-color: #fffde7; /* Helles Gelb für den Hintergrund */
+  color: #333;
+}
+
+/* Allgemeine Textumrandung für Titel */
+h1, h2, h3{
+  color: #000000; /* Gelber Akzent für Titel */
+  font-weight: bold;
+}
+
+p
+
+a {
+  color: #fbc02d;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Stil für Notizen */
+.note {
+  background-color: #fff9c4; /* Helles Gelb für die Notizen */
+  padding: 15px;
+  margin: 15px 0;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+  border-left: 6px solid #fbc02d; /* Gelber Akzent an der linken Seite */
+}
+
+/* Buttons für Aktionen */
+.note button, #noteForm button {
+  background-color: #fbc02d;
+  color: #333;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+}
+
+.note button:hover, #noteForm button:hover {
+  background-color: #f57f17;
+}
+
+/* Formularstil */
+#noteForm input[type="text"], #noteForm textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
   box-sizing: border-box;
 }
 
-body {
-  font-family: Arial, sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background: #f0f2f5;
-}
-
-.app-container {
-  width: 90%;
-  max-width: 600px;
-  background: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-h1 {
-  text-align: center;
-  color: #333;
-  font-size: 2em;
-  margin-bottom: 20px;
-}
-
-/* Eingabebereich */
-.input-container {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-#note-input {
-  flex: 1;
-  padding: 10px;
-  border: 2px solid #ddd;
-  border-radius: 5px;
-  font-size: 1em;
-  resize: none;
-}
-
-#add-note-btn {
-  padding: 10px 15px;
-  border: none;
-  background-color: #5b8cfa;
-  color: white;
-  font-weight: bold;
-  font-size: 1em;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-#add-note-btn:hover {
-  background-color: #4079e0;
-}
-
-/* Notizen-Bereich */
-.notes-container {
-  display: grid;
-  gap: 15px;
-}
-
-.note {
-  background-color: #ffe6a7;
-  padding: 15px;
-  border-radius: 5px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.note p {
-  margin: 0;
-  font-size: 1em;
-  color: #333;
-  word-wrap: break-word;
-  flex: 1;
-}
-
-.delete-btn {
-  margin-left: 15px;
-  background-color: #ff6b6b;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 0.9em;
-  transition: background-color 0.3s;
-}
-
-.delete-btn:hover {
-  background-color: #ff5252;
-}
-
-.note .editing {
-  background-color: #f0f8ff; /* Ein leichtes Blau für die Hervorhebung */
-  border: 1px dashed #00f; /* Optionale gestrichelte Umrandung */
+#noteForm textarea {
+  resize: vertical;
+  height: 100px;
 }
 /* Modal-Überlagerung */
 .modal-overlay {
