@@ -4,6 +4,9 @@ SQL Server
 host adress: 172.16.1.49
 host port: 3306
 
+user: user_a
+password: test123
+
 DB: NotizY_404
 
 Tabellen
