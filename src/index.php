@@ -45,6 +45,7 @@ $notes = $note->loadNotesByUser($username);
 
 <div class="container">
     <h1>Willkommen, <?php echo htmlspecialchars($username); ?></h1>
+    <img src="../assets/logo.jpg" alt="" height='20px' width='20px'>
     <p><a href="logout.php">Abmelden</a></p>
 
     <h2>Neue Notiz hinzufügen</h2>
