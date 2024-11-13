@@ -99,8 +99,7 @@
 
         function logout() {
             alert("Sie haben sich erfolgreich abgemeldet.");
-            // Tutaj możesz dodać akcję na wylogowanie, np. przekierowanie na stronę logowania
-        }
+         }
     </script>
 
 </body>
