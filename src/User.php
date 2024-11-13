@@ -10,7 +10,7 @@ class User
     public function __construct($dbConnection)
     {
         $this->db = $dbConnection;
-        session_start();
+        
     }
 
     public function register($username, $password)
