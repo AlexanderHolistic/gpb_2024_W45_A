@@ -3,4 +3,24 @@ SQL Server
 
 host adress: 172.16.1.49
 host port: 3306
-		
+
+DB: NotizY_404
+
+Tabellen
+-----------
+
+User
+
+	#	Name	Typ	Kollation	Attribute	Null	Standard	Kommentare	Extra	Aktion
+	1	ID Primärschlüssel	int(11)			Nein	kein(e)		AUTO_INCREMENT	Bearbeiten Bearbeiten	Löschen Löschen	
+	2	Username	varchar(50)	utf8mb4_general_ci		Nein	kein(e)			Bearbeiten Bearbeiten	Löschen Löschen	
+	3	Passwort	varchar(50)	utf8mb4_general_ci		Nein	kein(e)			Bearbeiten Bearbeiten
+
+Notizen
+	#	Name	Typ	Kollation	Attribute	Null	Standard	Kommentare	Extra	Aktion
+	1	ID Primärschlüssel	int(11)			Nein	kein(e)		AUTO_INCREMENT	Bearbeiten Bearbeiten	Löschen Löschen	
+	2	Username	varchar(50)	utf8mb4_general_ci		Nein	kein(e)			Bearbeiten Bearbeiten	Löschen Löschen	
+	3	Inhalt	varchar(500)	utf8mb4_general_ci		Nein	kein(e)			Bearbeiten Bearbeiten	Löschen Löschen	
+	4	Datum	date			Nein	kein(e)			Bearbeiten Bearbeiten	Löschen Löschen	
+	5	Titel	varchar(50)	utf8mb4_general_ci		Nein	kein(e)			Bearbeiten Bearbeiten	Löschen Löschen	
+
