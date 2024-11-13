@@ -1,107 +1,104 @@
+<?php
+require_once 'db.php';
+require_once 'User.php';
+require_once 'Note.php';
+
+session_start();
+
+// Prüfen, ob der Benutzer eingeloggt ist
+$user = new User($db);
+if (!$user->isLoggedIn()) {
+    header('Location: login.php');
+    exit;
+}
+
+// Erstellen eines Note-Objekts
+$note = new Note($db);
+$username = $_SESSION['username'];
+
+// Verarbeitung von Notiz-Aktionen
+$action = $_POST['action'] ?? null;
+$title = $_POST['title'] ?? null;
+$content = $_POST['content'] ?? null;
+$noteId = $_POST['noteId'] ?? null;
+
+if ($action === 'add' && $title && $content) {
+    $note->addNote($username, $title, $content);
+} elseif ($action === 'edit' && $noteId && $title && $content) {
+    $note->updateNote($noteId, $title, $content);
+} elseif ($action === 'delete' && $noteId) {
+    $note->deleteNote($noteId);
+}
+
+// Laden der Notizen des Benutzers
+$notes = $note->loadNotesByUser($username);
+?>
+
 <!DOCTYPE html>
 <html lang="de">
-
 <head>
     <meta charset="UTF-8">
     <title>Notizverwaltung</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: auto;
-            padding: 20px;
-            background-color: #f4f4f9;
-        }
-        h1, h2 {
-            color: #4a90e2;
-        }
-        .note {
-            background-color: #fff;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 5px;
-            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        .note button {
-            background-color: #4a90e2;
-            color: #fff;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-    <h1>Willkommen, Benutzer</h1>
-    <p><a href="#" onclick="logout()">Abmelden</a></p>
+<div class="container">
+    <h1>Willkommen, <?php echo htmlspecialchars($username); ?></h1>
+    <p><a href="logout.php">Abmelden</a></p>
 
     <h2>Neue Notiz hinzufügen</h2>
-    <form id="noteForm">
-        Titel: <input type="text" id="title" required><br><br>
-        Inhalt: <textarea id="content" required></textarea><br><br>
-        <button type="button" onclick="addNote()">Notiz hinzufügen</button>
+    <form method="post" action="index.php">
+        <input type="hidden" name="action" value="add">
+        <label for="title">Titel:</label>
+        <input type="text" name="title" id="title" required>
+        <label for="content">Inhalt:</label>
+        <textarea name="content" id="content" required></textarea>
+        <button type="submit">Notiz hinzufügen</button>
     </form>
 
     <h2>Deine Notizen</h2>
-    <div id="notesContainer">
+    <?php if (!empty($notes)): ?>
+        <?php foreach ($notes as $note): ?>
+            <div class="note">
+                <h3><?php echo htmlspecialchars($note['Titel']); ?></h3>
+                <p><?php echo nl2br(htmlspecialchars($note['Inhalt'])); ?></p>
+                <small><?php echo htmlspecialchars($note['date']); ?></small>
+
+                <!-- Bearbeiten-Schaltfläche -->
+                <button type="button" onclick="openEditModal('<?php echo $note['ID']; ?>', '<?php echo htmlspecialchars($note['Titel']); ?>', '<?php echo htmlspecialchars($note['Inhalt']); ?>')">Bearbeiten</button>
+
+                <!-- Löschen-Schaltfläche -->
+                <form method="post" action="index.php" style="display:inline;">
+                    <input type="hidden" name="action" value="delete">
+                    <input type="hidden" name="noteId" value="<?php echo $note['ID']; ?>">
+                    <button type="submit" onclick="return confirm('Möchten Sie diese Notiz wirklich löschen?')">Löschen</button>
+                </form>
+            </div>
+        <?php endforeach; ?>
+    <?php else: ?>
         <p>Keine Notizen vorhanden.</p>
+    <?php endif; ?>
+</div>
+
+<!-- Modal für Notiz bearbeiten -->
+<div class="modal-overlay" id="editModalOverlay">
+    <div class="modal" id="editModal">
+        <span class="modal-close" onclick="closeEditModal()">×</span>
+        <h3>Notiz bearbeiten</h3>
+        <form id="editNoteForm" method="post" action="index.php">
+            <input type="hidden" name="action" value="edit">
+            <input type="hidden" name="noteId" id="editNoteId">
+            <label for="editTitle">Titel:</label>
+            <input type="text" name="title" id="editTitle" required>
+            <label for="editContent">Inhalt:</label>
+            <textarea name="content" id="editContent" required></textarea>
+            <button type="submit">Aktualisieren</button>
+        </form>
     </div>
+</div>
 
-    <script>
-        const notesContainer = document.getElementById('notesContainer');
-
-        function addNote() {
-            const title = document.getElementById('title').value;
-            const content = document.getElementById('content').value;
-
-            if (title && content) {
-                const noteDiv = document.createElement('div');
-                noteDiv.classList.add('note');
-
-                noteDiv.innerHTML = `
-                    <h3>${title}</h3>
-                    <p>${content.replace(/\n/g, "<br>")}</p>
-                    <button onclick="editNote(this)">Notiz aktualisieren</button>
-                    <button onclick="deleteNote(this)">Notiz löschen</button>
-                `;
-
-                notesContainer.appendChild(noteDiv);
-                document.getElementById('noteForm').reset();
-
-                if (notesContainer.querySelector('p')) {
-                    notesContainer.querySelector('p').remove();
-                }
-            }
-        }
-
-        function deleteNote(button) {
-            if (confirm('Möchten Sie diese Notiz wirklich löschen?')) {
-                button.parentElement.remove();
-                if (notesContainer.childElementCount === 0) {
-                    notesContainer.innerHTML = "<p>Keine Notizen vorhanden.</p>";
-                }
-            }
-        }
-
-        function editNote(button) {
-            const noteDiv = button.parentElement;
-            const title = prompt("Aktualisiere den Titel", noteDiv.querySelector('h3').innerText);
-            const content = prompt("Aktualisiere den Inhalt", noteDiv.querySelector('p').innerText);
-
-            if (title && content) {
-                noteDiv.querySelector('h3').innerText = title;
-                noteDiv.querySelector('p').innerText = content;
-            }
-        }
-
-        function logout() {
-            alert("Sie haben sich erfolgreich abgemeldet.");
-         }
-    </script>
+<script src="script.js"></script>
 
 </body>
-
 </html>
