@@ -25,17 +25,16 @@ document.addEventListener("DOMContentLoaded", function () {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },
-        body: `action=edit&noteId=${encodeURIComponent(
+        body: `action=update&noteId=${encodeURIComponent(
           noteId
-        )}&title=${encodeURIComponent(title)}&content=${encodeURIComponent(
-          content
-        )}`,
+        )}&title=${encodeURIComponent(title)}&content=${encodeURIComponent(content)}`,
       })
         .then((response) => response.text())
         .then(() => {
           closeEditModal();
           location.reload();
         });
+      
     });
   }
 });

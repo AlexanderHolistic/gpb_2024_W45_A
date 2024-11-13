@@ -5,7 +5,7 @@ body {
   background: linear-gradient(to top, #fffde7, #fff8e1, #ffecb3, #ffe082);
   background-size: cover;
   font-family: "Merriweather", serif;
-  color: #3e2723;
+  color: #333333;
   padding: 20px;
   max-width: 1200px;
   margin: auto;
@@ -36,7 +36,7 @@ header {
 
 header h1 {
   font-family: "Dancing Script", cursive;
-  color: #6d4c41;
+  color: #333333;
   font-size: 2.5em;
   margin: 0;
 }
@@ -126,18 +126,16 @@ footer p {
   font-family: "Merriweather", serif;
 }
 
-
-
 h1,
 h2 {
   font-family: "Dancing Script", cursive;
-  color: #6d4c41;
+  color: #757575;
   font-size: 2.5em;
   margin-bottom: 15px;
 }
 
 h3 {
-  color: #3e2723;
+  color: #757575;
   font-weight: bold;
   font-size: 1.5em;
 }
@@ -252,7 +250,7 @@ h3 {
 #noteForm h2 {
   font-family: "Dancing Script", cursive;
   font-size: 1.8em;
-  color: #6d4c41;
+  color: #757575;
   margin-bottom: 10px;
 }
 
@@ -400,7 +398,7 @@ h3 {
 
 .login-form label {
   font-family: "Merriweather", serif;
-  color: #6d4c41;
+  color: #333333;
   text-align: left;
 }
 
@@ -458,7 +456,7 @@ h3 {
 
 .register-form label {
   font-family: "Merriweather", serif;
-  color: #6d4c41;
+  color: #333333;
   text-align: left;
   margin-bottom: 5px;
 }
@@ -509,6 +507,7 @@ h3 {
 .login-link a {
   color: #f57f17;
   text-decoration: none;
+  color: #333333;
 }
 
 .login-link a:hover {

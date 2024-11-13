@@ -21,7 +21,7 @@ $noteId = $_POST['noteId'] ?? null;
 
 if ($action === 'add' && $title && $content) {
     $note->createNote($username, $title, $content);
-} elseif ($action === 'edit' && $noteId && $title && $content) {
+} elseif ($action === 'update' && $noteId && $title && $content) {
     $note->updateNote($noteId, $title, $content);
 } elseif ($action === 'delete' && $noteId) {
     $note->deleteNote($noteId);
@@ -29,6 +29,7 @@ if ($action === 'add' && $title && $content) {
 
 $notes = $note->loadNotesByUser($username);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="de">
