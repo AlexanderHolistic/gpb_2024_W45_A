@@ -6,48 +6,33 @@ require_once 'Note.php';
 $user = new User($db);
 
 if (!$user->isLoggedIn()) {
-    echo 'unauthorized';
     exit;
 }
 
 $noteModel = new Note($db);
+$username = $_SESSION['username'];
 
-$userId = $user->getUserId();
 $action = $_POST['action'] ?? '';
-$noteText = $_POST['note'] ?? '';
+$title = trim($_POST['title'] ?? '');
+$content = trim($_POST['content'] ?? '');
 $noteId = isset($_POST['note_id']) ? intval($_POST['note_id']) : 0;
 
 if ($action === 'create') {
-    if (!empty(trim($noteText))) {
-        if ($noteModel->createNote($userId, $noteText)) {
+    if (!empty($title) && !empty($content)) {
+        if ($noteModel->createNote($username, $title, $content)) {
             echo 'success';
-        } else {
-            echo 'error';
         }
-    } else {
-        echo 'error';
     }
 } elseif ($action === 'update') {
-    if (!empty(trim($noteText)) && $noteId > 0) {
-        if ($noteModel->updateNote($noteId, $userId, $noteText)) {
+    if (!empty($title) && !empty($content) && $noteId > 0) {
+        if ($noteModel->updateNote($noteId, $title, $content)) {
             echo 'updated';
-        } else {
-            echo 'error';
         }
-    } else {
-        echo 'error';
     }
 } elseif ($action === 'delete') {
     if ($noteId > 0) {
-        if ($noteModel->deleteNote($noteId, $userId)) {
+        if ($noteModel->deleteNote($noteId)) {
             echo 'deleted';
-        } else {
-            echo 'error';
         }
-    } else {
-        echo 'error';
     }
-} else {
-    echo 'invalid_action';
 }
-?>

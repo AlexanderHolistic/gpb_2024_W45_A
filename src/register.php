@@ -8,13 +8,11 @@ $username = $_POST['username'] ?? null;
 $password = $_POST['password'] ?? null;
 
 if ($username && $password) {
-    // Versucht, den Benutzer zu registrieren
     if ($user->register($username, $password)) {
-        // Nach erfolgreicher Registrierung zur Login-Seite weiterleiten
         header('Location: login.php');
         exit;
     } else {
-        echo "Der Benutzername ist bereits vergeben. Bitte wählen Sie einen anderen Benutzernamen.";
+        echo "<p class='error-message'>Der Benutzername ist bereits vergeben. Bitte wählen Sie einen anderen Benutzernamen.</p>";
     }
 }
 ?>
@@ -24,20 +22,28 @@ if ($username && $password) {
 
 <head>
     <meta charset="UTF-8">
-    <title>Registrierung</title>
+    <link rel="stylesheet" href="css/style.css">
+    <title>Registrieren</title>
 </head>
 
 <body>
+    <div class="logo-container">
+        <img src="images/logo.png" alt="Notizbuch Logo" class="logoLogReg">
+    </div>
+    <br><br><br><br><br><br>
 
-    <h2>Registrieren</h2>
-    <form method="post" action="register.php">
-        Benutzername: <input type="text" name="username" required><br>
-        Passwort: <input type="password" name="password" required><br>
-        <button type="submit">Registrieren</button>
-    </form>
-
-    <p>Bereits registriert? <a href="login.php">Hier anmelden</a></p>
-
+    <div class="login-container">
+        <h2>Registrieren</h2>
+        <form method="post" action="register.php" class="login-form">
+            <label for="username">Benutzername:</label>
+            <input type="text" name="username" id="username" required><br>
+            <label for="password">Passwort:</label>
+            <input type="password" name="password" id="password" required><br>
+            <button type="submit" class="register-button">Registrieren</button>
+        </form>
+        <p class="login-link">Bereits registriert? <a href="login.php">Hier anmelden</a></p>
+    </div>
+    </div>
 </body>
 
 </html>

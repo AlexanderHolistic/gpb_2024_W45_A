@@ -4,17 +4,15 @@ require_once 'User.php';
 
 $user = new User($db);
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+$username = $_POST['username'] ?? null;
+$password = $_POST['password'] ?? null;
 
-    // Versucht, den Benutzer anzumelden
+if ($username && $password) {
     if ($user->login($username, $password)) {
-        // Nach erfolgreichem Login zur Notizverwaltungsseite weiterleiten
         header('Location: index.php');
         exit;
     } else {
-        echo "Anmeldung fehlgeschlagen. Bitte überprüfen Sie Ihren Benutzernamen und Ihr Passwort.";
+        echo "<p class='error-message'>Anmeldung fehlgeschlagen. Bitte überprüfen Sie Ihren Benutzernamen und Ihr Passwort.</p>";
     }
 }
 ?>
@@ -24,20 +22,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/style.css">
     <title>Anmeldung</title>
 </head>
 
 <body>
+    <div class="logo-container">
+        <img src="images/logo.png" alt="Notizbuch Logo" class="logoLogReg">
+    </div>
+    <br><br><br><br><br><br>
 
-    <h2>Anmelden</h2>
-    <form method="post" action="login.php">
-        Benutzername: <input type="text" name="username" required><br>
-        Passwort: <input type="password" name="password" required><br>
-        <button type="submit">Anmelden</button>
-    </form>
-
-    <p>Noch kein Konto? <a href="register.php">Hier registrieren</a></p>
-
+    <div class="login-container">
+        <h2>Anmelden</h2>
+        <form method="post" action="login.php" class="login-form">
+            <label for="username">Benutzername:</label>
+            <input type="text" name="username" id="username" required><br>
+            <label for="password">Passwort:</label>
+            <input type="password" name="password" id="password" required><br>
+            <button type="submit" class="login-button">Anmelden</button>
+        </form>
+        <p class="register-link">Noch kein Konto? <a href="register.php">Hier registrieren</a></p>
+    </div>
 </body>
 
 </html>

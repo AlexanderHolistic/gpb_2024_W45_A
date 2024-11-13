@@ -10,20 +10,9 @@ class Note
         $this->db = $dbConnection;
     }
 
-    public function loadNotesByUser($username)
+    public function createNote($username, $title, $content)
     {
-        $stmt = $this->db->prepare('SELECT ID, Titel, Inhalt, date FROM Notizen WHERE Username = ? ORDER BY date DESC');
-        $stmt->bind_param('s', $username);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $notes = $result->fetch_all(MYSQLI_ASSOC);
-        $stmt->close();
-        return $notes;
-    }
-
-    public function addNote($username, $title, $content)
-    {
-        $stmt = $this->db->prepare('INSERT INTO Notizen (Username, Titel, Inhalt) VALUES (?, ?, ?)');
+        $stmt = $this->db->prepare('INSERT INTO Notizen (Username, Titel, Inhalt, date) VALUES (?, ?, ?, NOW())');
         $stmt->bind_param('sss', $username, $title, $content);
         $success = $stmt->execute();
         $stmt->close();
@@ -46,5 +35,16 @@ class Note
         $success = $stmt->execute();
         $stmt->close();
         return $success;
+    }
+
+    public function loadNotesByUser($username)
+    {
+        $stmt = $this->db->prepare('SELECT ID, Titel, Inhalt, date FROM Notizen WHERE Username = ? ORDER BY date DESC');
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $notes = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        return $notes;
     }
 }

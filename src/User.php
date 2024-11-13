@@ -3,24 +3,17 @@ require_once 'db.php';
 
 class User
 {
-    private $db;
-    private $userId;
-    private $username;
-
-    public function __construct($dbConnection)
-    {
-        $this->db = $dbConnection;
-        
-    }
 
     public function register($username, $password)
     {
+        global $db;
+
         if ($this->usernameExists($username)) {
             return false;
         }
 
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $stmt = $this->db->prepare('INSERT INTO User (username, password) VALUES (?, ?)');
+        $stmt = $db->prepare('INSERT INTO User (username, password) VALUES (?, ?)');
         $stmt->bind_param('ss', $username, $hashedPassword);
         $success = $stmt->execute();
         $stmt->close();
@@ -29,7 +22,12 @@ class User
 
     public function login($username, $password)
     {
-        $stmt = $this->db->prepare('SELECT ID, password FROM User WHERE username = ?');
+        global $db;
+
+        $id = null;
+        $hashedPassword = null;
+
+        $stmt = $db->prepare('SELECT ID, password FROM User WHERE username = ?');
         $stmt->bind_param('s', $username);
         $stmt->execute();
         $stmt->bind_result($id, $hashedPassword);
@@ -37,10 +35,9 @@ class User
         $stmt->close();
 
         if ($id && password_verify($password, $hashedPassword)) {
-            $this->userId = $id;
-            $this->username = $username;
-            $_SESSION['user_id'] = $this->userId;
-            $_SESSION['username'] = $this->username;
+            $this->ensureSessionStarted();
+            $_SESSION['user_id'] = $id;
+            $_SESSION['username'] = $username;
             return true;
         }
         return false;
@@ -48,23 +45,40 @@ class User
 
     public function logout()
     {
+        $this->ensureSessionStarted();
         session_unset();
         session_destroy();
     }
 
     public function isLoggedIn()
     {
+        $this->ensureSessionStarted();
         return isset($_SESSION['user_id']);
+    }
+
+    public function getUserId()
+    {
+        $this->ensureSessionStarted();
+        return $_SESSION['user_id'] ?? null;
     }
 
     private function usernameExists($username)
     {
-        $stmt = $this->db->prepare('SELECT ID FROM User WHERE username = ?');
+        global $db;
+
+        $stmt = $db->prepare('SELECT ID FROM User WHERE username = ?');
         $stmt->bind_param('s', $username);
         $stmt->execute();
         $stmt->store_result();
         $exists = $stmt->num_rows > 0;
         $stmt->close();
         return $exists;
+    }
+
+    private function ensureSessionStarted()
+    {
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();
+        }
     }
 }
