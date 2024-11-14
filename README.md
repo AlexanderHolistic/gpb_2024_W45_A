@@ -3,27 +3,6 @@
 Übungsprojekt GPB 125-129 Blau
 
 
-////js
-export function openEdit(noteId, title, content) {
-  document.getElementById("formAction").value = "update";
-  document.getElementById("noteId").value = noteId;
-  document.getElementById("title").value = title;
-  document.getElementById("content").value = content;
-  document.getElementById("submitButton").textContent = "Notiz aktualisieren";
-  window.scrollTo(0, 0); 
-}
-
-document.addEventListener("DOMContentLoaded", function () {
-
-  document.getElementById("noteForm").addEventListener("reset", function () {
-    document.getElementById("formAction").value = "add";
-    document.getElementById("noteId").value = "";
-    document.getElementById("submitButton").textContent = "Notiz hinzufügen";
-  });
-});
-
-
-
 //new form index.php
 
 <form method="post" action="index.php" id="noteForm">
@@ -35,6 +14,10 @@ document.addEventListener("DOMContentLoaded", function () {
     <textarea name="content" id="content" required></textarea>
     <button type="submit" id="submitButton">Notiz hinzufügen</button>
 </form>
+
+
+
+
 
 
 //button
