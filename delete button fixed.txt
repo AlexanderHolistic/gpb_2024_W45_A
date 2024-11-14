@@ -1,0 +1,9 @@
+line 86 
+
+<div class="note-actions">
+	<button type="button" onclick="openEditModal('<?php echo $note['ID']; ?>', '<?php echo htmlspecialchars($note['Titel'], ENT_QUOTES); ?>', '<?php echo htmlspecialchars($note['Inhalt'], ENT_QUOTES); ?>')">Bearbeiten</button>
+     <form method="post" action="index.php" class="delete-note-form">
+        <input type="hidden" name="action" value="delete">
+        <input type="hidden" name="noteId" value="<?php echo $note['ID']; ?>">
+        <button type="submit">Löschen</button>
+     </form>
