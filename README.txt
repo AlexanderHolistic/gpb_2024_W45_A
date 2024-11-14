@@ -13,6 +13,10 @@ Kein Modal - popup Window, session wurde repariert, kein Alert beim Löschen.
 
 TODO:
 
+TESTEN,
+
+danach:
+
 SCHRIFTGRÖßE
 
 -----------------------------------
