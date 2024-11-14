@@ -2,15 +2,21 @@
 
 Übungsprojekt GPB 125-129 Blau
 
------------------------------------
+---------------------------------------------------------
 
-NICHT VERGESSEN!! - db.php zu ändern - KEIN LOCALHOST!
+script.js und index wurden nochmal gepusht.
 
+---------------------------------------------------------
 
-Alles funktioniert, keine Bugs etc. Session, Button Bearbeiten i.O.
+!!NICHT VERGESSEN!! - db.php zu ändern - KEIN LOCALHOST! 
 
-Kein Modal - popup Window, session wurde repariert, kein Alert beim Löschen.
+#############################################################################
+Alles funktioniert, keine Bugs etc. Session, Button Bearbeiten i.O.         #
+                                                                            # 
+Kein Modal - popup Window, session wurde repariert, kein Alert beim Löschen.#
+#############################################################################
 
+****************************************************************************
 TODO:
 
 TESTEN,
@@ -19,13 +25,14 @@ danach:
 
 SCHRIFTGRÖßE
 
+****************************************************************************
+
+
+
+
+
+
 -----------------------------------
-
-script.js und index wurden nochmal gepusht.
-
-
-
-
 
 
 //new form index.php
