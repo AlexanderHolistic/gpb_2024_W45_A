@@ -4,7 +4,13 @@
 
 Alles funktioniert, keine Bugs etc. Session, bearbeitec i.O.
 
-script.js und index wurde nochmal gepusht.
+Kein Modal - popup Window, session wurde repariert, kein Alert beim Löschen.
+
+TODO:
+
+Schriftgröße
+
+script.js und index wurden nochmal gepusht.
 
 
 
