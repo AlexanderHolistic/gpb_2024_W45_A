@@ -21,15 +21,21 @@ $noteId = $_POST['noteId'] ?? null;
 
 if ($action === 'add' && $title && $content) {
     $note->createNote($username, $title, $content);
+    header('Location: index.php');
+    exit;
 } elseif ($action === 'update' && $noteId && $title && $content) {
     $note->updateNote($noteId, $title, $content);
+    header('Location: index.php');
+    exit;
 } elseif ($action === 'delete' && $noteId) {
     $note->deleteNote($noteId);
+    header('Location: index.php');
+    exit;
 }
+
 
 $notes = $note->loadNotesByUser($username);
 ?>
-
 
 <!DOCTYPE html>
 <html lang="de">
@@ -38,17 +44,7 @@ $notes = $note->loadNotesByUser($username);
     <meta charset="UTF-8">
     <title>NotizY</title>
     <link rel="stylesheet" href="css/style.css">
-    <script type="module">
-        import {
-            openEditModal,
-            closeEditModal,
-            deleteNote
-        } from './js/script.js';
-
-        window.openEditModal = openEditModal;
-        window.closeEditModal = closeEditModal;
-        window.deleteNote = deleteNote;
-    </script>
+    <script type="module" src="js/script.js"></script>
 </head>
 
 <body>
@@ -60,18 +56,18 @@ $notes = $note->loadNotesByUser($username);
         <form method="post" action="logout.php" class="logout-form">
             <button class="logout-button" type="submit">Abmelden</button>
         </form>
-    </header>
+    </header><br>
 
     <div class="main-container">
         <div class="content-wrapper">
             <div id="noteForm" class="note-form-container">
-                <h2>Neue Notiz hinzufügen</h2><br>
-                <form method="post" action="index.php">
-                    <input type="hidden" name="action" value="add">
-                    <label for="title">Titel:</label><br>
+                <h2 id="formHeader">Neue Notiz hinzufügen</h2>
+                <form id="mainNoteForm" method="post" action="index.php">
+                    <input type="hidden" name="action" value="add" id="formAction">
+                    <input type="hidden" name="noteId" id="formNoteId">
                     <input type="text" name="title" id="title" required>
                     <textarea name="content" id="content" required></textarea>
-                    <button type="submit">Notiz hinzufügen</button>
+                    <button type="submit" id="formSubmitButton">Notiz hinzufügen</button>
                 </form>
             </div>
 
@@ -84,11 +80,15 @@ $notes = $note->loadNotesByUser($username);
                             <p><?php echo nl2br(htmlspecialchars($note['Inhalt'])); ?></p>
                             <small><?php echo htmlspecialchars($note['date']); ?></small>
                             <div class="note-actions">
-                                <button type="button" onclick="openEditModal('<?php echo $note['ID']; ?>', '<?php echo htmlspecialchars($note['Titel'], ENT_QUOTES); ?>', '<?php echo htmlspecialchars($note['Inhalt'], ENT_QUOTES); ?>')">Bearbeiten</button>
+                                <button type="button" onclick="editNote(
+                                    '<?php echo $note['ID']; ?>',
+                                    '<?php echo htmlspecialchars($note['Titel'], ENT_QUOTES); ?>',
+                                    '<?php echo htmlspecialchars($note['Inhalt'], ENT_QUOTES); ?>'
+                                )">Bearbeiten</button>
                                 <form method="post" action="index.php" class="delete-note-form">
                                     <input type="hidden" name="action" value="delete">
                                     <input type="hidden" name="noteId" value="<?php echo $note['ID']; ?>">
-                                    <button type="submit" onclick="return confirm('Möchten Sie diese Notiz wirklich löschen?')">Löschen</button>
+                                    <button type="submit">Löschen</button>
                                 </form>
                             </div>
                         </div>
@@ -100,25 +100,9 @@ $notes = $note->loadNotesByUser($username);
         </div>
     </div>
 
-    <div id="editModalOverlay" class="modal-overlay">
-        <div class="modal">
-            <span class="modal-close" onclick="closeEditModal()">&times;</span>
-            <h3>Notiz bearbeiten</h3>
-            <form id="editNoteForm">
-                <input type="hidden" id="editNoteId" name="noteId">
-                <label for="editTitle">Titel:</label>
-                <input type="text" id="editTitle" name="title" required>
-                <label for="editContent">Inhalt:</label>
-                <textarea id="editContent" name="content" required></textarea>
-                <button type="submit" class="edit-button">Speichern</button>
-            </form>
-        </div>
-    </div>
-
     <footer>
-        <p>NotizY © 2024 </p>
+        <p>NotizY © 2024</p>
     </footer>
-
 </body>
 
 </html>
