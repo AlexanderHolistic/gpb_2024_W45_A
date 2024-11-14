@@ -2,13 +2,20 @@
 
 Übungsprojekt GPB 125-129 Blau
 
+-----------------------------------
+
+NICHT VERGESSEN!! - db.php zu ändert - KEIN LOCALHOST1
+
+
 Alles funktioniert, keine Bugs etc. Session, Button Bearbeiten i.O.
 
 Kein Modal - popup Window, session wurde repariert, kein Alert beim Löschen.
 
 TODO:
 
-Schriftgröße
+SCHRIFTGRÖßE
+
+-----------------------------------
 
 script.js und index wurden nochmal gepusht.
 
