@@ -15,3 +15,5 @@
     Inhalt varchar (500) NOT NULL,
     date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
  );
+
+ALTER TABLE `notizen` ADD `Kategorie` VARCHAR(100) NULL AFTER `Inhalt`;

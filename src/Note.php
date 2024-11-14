@@ -10,37 +10,34 @@ class Note
         $this->db = $dbConnection;
     }
 
-    public function createNote($username, $title, $content)
+    public function createNote($username, $title, $content, $category)
     {
-        $stmt = $this->db->prepare('INSERT INTO Notizen (Username, Titel, Inhalt, date) VALUES (?, ?, ?, NOW())');
-        $stmt->bind_param('sss', $username, $title, $content);
-        $success = $stmt->execute();
+        $stmt = $this->db->prepare("INSERT INTO notizen (Username, Titel, Inhalt, Kategorie, date) VALUES (?, ?, ?, ?, NOW())");
+        $stmt->bind_param("ssss", $username, $title, $content, $category);
+        $stmt->execute();
         $stmt->close();
-        return $success;
     }
 
-    public function updateNote($noteId, $title, $content)
+    public function updateNote($noteId, $title, $content, $category)
     {
-        $stmt = $this->db->prepare('UPDATE Notizen SET Titel = ?, Inhalt = ? WHERE ID = ?');
-        $stmt->bind_param('ssi', $title, $content, $noteId);
-        $success = $stmt->execute();
+        $stmt = $this->db->prepare("UPDATE notizen SET Titel = ?, Inhalt = ?, Kategorie = ? WHERE ID = ?");
+        $stmt->bind_param("sssi", $title, $content, $category, $noteId);
+        $stmt->execute();
         $stmt->close();
-        return $success;
     }
 
     public function deleteNote($noteId)
     {
-        $stmt = $this->db->prepare('DELETE FROM Notizen WHERE ID = ?');
-        $stmt->bind_param('i', $noteId);
-        $success = $stmt->execute();
+        $stmt = $this->db->prepare("DELETE FROM notizen WHERE ID = ?");
+        $stmt->bind_param("i", $noteId);
+        $stmt->execute();
         $stmt->close();
-        return $success;
     }
 
     public function loadNotesByUser($username)
     {
-        $stmt = $this->db->prepare('SELECT ID, Titel, Inhalt, date FROM Notizen WHERE Username = ? ORDER BY date DESC');
-        $stmt->bind_param('s', $username);
+        $stmt = $this->db->prepare("SELECT ID, Titel, Inhalt, Kategorie, date FROM notizen WHERE Username = ?");
+        $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
         $notes = $result->fetch_all(MYSQLI_ASSOC);
@@ -48,3 +45,4 @@ class Note
         return $notes;
     }
 }
+?>

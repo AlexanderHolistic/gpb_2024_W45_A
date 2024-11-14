@@ -14,25 +14,19 @@ $username = $_SESSION['username'];
 
 $action = $_POST['action'] ?? '';
 $title = trim($_POST['title'] ?? '');
+$category = trim($_POST['category'] ?? '');
 $content = trim($_POST['content'] ?? '');
 $noteId = isset($_POST['note_id']) ? intval($_POST['note_id']) : 0;
 
 if ($action === 'create') {
     if (!empty($title) && !empty($content)) {
-        if ($noteModel->createNote($username, $title, $content)) {
-            echo 'success';
+        if ($noteModel->createNote($username, $title, $content, $category)) {
+            echo "Note successfully saved!";
+        } else {
+            echo "Failed to save the note.";
         }
-    }
-} elseif ($action === 'update') {
-    if (!empty($title) && !empty($content) && $noteId > 0) {
-        if ($noteModel->updateNote($noteId, $title, $content)) {
-            echo 'updated';
-        }
-    }
-} elseif ($action === 'delete') {
-    if ($noteId > 0) {
-        if ($noteModel->deleteNote($noteId)) {
-            echo 'deleted';
-        }
+    } else {
+        echo "Title and content are required.";
     }
 }
+?>
