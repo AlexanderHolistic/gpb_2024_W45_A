@@ -4,7 +4,7 @@
 
 -----------------------------------
 
-NICHT VERGESSEN!! - db.php zu ändert - KEIN LOCALHOST1
+NICHT VERGESSEN!! - db.php zu ändern - KEIN LOCALHOST!
 
 
 Alles funktioniert, keine Bugs etc. Session, Button Bearbeiten i.O.
