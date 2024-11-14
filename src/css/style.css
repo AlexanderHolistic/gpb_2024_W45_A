@@ -1,0 +1,524 @@
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Merriweather&display=swap");
+
+body {
+  background: linear-gradient(to top, #fffde7, #fff8e1, #ffecb3, #ffe082);
+  background-size: cover;
+  font-family: "Merriweather", serif;
+  color: #333333;
+  padding: 20px;
+  max-width: 1200px;
+  margin: auto;
+  background-blend-mode: overlay;
+}
+
+header {
+  background-color: #fff9c4;
+  border-bottom: 4px solid #fbc02d;
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+  margin-bottom: 60px;
+  width: 100%;
+  max-width: 1160px;
+  margin: 0 auto 60px auto;
+  position: relative;
+}
+
+.header-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+header h1 {
+  font-family: "Dancing Script", cursive;
+  color: #333333;
+  font-size: 2.5em;
+  margin: 0;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.content-wrapper {
+  display: flex;
+  gap: 30px;
+}
+
+.note-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.delete-note-form {
+  display: inline;
+}
+
+.logo {
+  position: absolute;
+  top: -140px;
+  left: 10%;
+  transform: translateX(-50%) rotate(-10deg);
+  width: 420px;
+  height: auto;
+  z-index: 1000;
+}
+
+.logoLogReg {
+  position: absolute;
+  top: -120px;
+  left: 30%;
+  transform: translateX(-55%) rotate(-10deg);
+  width: 700px;
+  height: auto;
+  z-index: -1000;
+}
+
+.logout-button {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #fbc02d;
+  color: #3e2723;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+}
+
+.logout-button:hover {
+  background-color: #f57f17;
+}
+
+.container {
+  display: flex;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 80px auto 20px auto;
+  padding: 20px;
+}
+
+footer {
+  background-color: #fff9c4;
+  border-top: 4px solid #fbc02d;
+  padding: 10px;
+  text-align: center;
+  font-size: 0.9em;
+  color: #6d4c41;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+  margin-top: 20px;
+}
+
+footer p {
+  margin: 0;
+  font-family: "Merriweather", serif;
+}
+
+h1,
+h2 {
+  font-family: "Dancing Script", cursive;
+  color: #757575;
+  font-size: 2.5em;
+  margin-bottom: 15px;
+}
+
+h3 {
+  color: #757575;
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
+.note {
+  background-color: #fff9c4;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 8px;
+  position: relative;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+  border-left: 6px solid #fbc02d;
+  background-image: linear-gradient(transparent 96%, rgba(0, 0, 0, 0.05) 96%);
+  background-size: 100% 30px;
+}
+
+.note::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30px;
+  height: 30px;
+  background-color: #fbc02d;
+  border-top-left-radius: 8px;
+  box-shadow: -3px -3px 5px rgba(0, 0, 0, 0.1);
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+}
+
+.note button,
+#noteForm button {
+  background-color: #fbc02d;
+  color: #3e2723;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+}
+
+.note button:hover,
+#noteForm button:hover {
+  background-color: #f57f17;
+}
+
+#noteForm {
+  flex: 2;
+  background-color: #fff9c4;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 8px;
+  border-left: 6px solid #fbc02d;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.notes-container {
+  flex: 2;
+  background-color: #fffde7;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+  overflow-y: auto;
+  max-height: 65vh;
+  scrollbar-width: thin;
+  scrollbar-color: #fbc02d #fffde7;
+}
+
+.notes-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.notes-container::-webkit-scrollbar-track {
+  background: #fffde7;
+}
+
+.notes-container::-webkit-scrollbar-thumb {
+  background-color: #fbc02d;
+  border-radius: 10px;
+  border: 2px solid #fffde7;
+}
+
+#noteForm input[type="text"] {
+  width: 100%;
+  max-width: 350px;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-family: "Merriweather", serif;
+  font-size: 1em;
+  color: #3e2723;
+  background-color: #fef9e7;
+}
+
+#noteForm textarea {
+  width: 100%;
+  min-height: 250px;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-family: "Merriweather", serif;
+  font-size: 1em;
+  color: #3e2723;
+  background-color: #fef9e7;
+  resize: vertical;
+  margin-bottom: 15px;
+}
+
+#noteForm h2 {
+  font-family: "Dancing Script", cursive;
+  font-size: 1.8em;
+  color: #757575;
+  margin-bottom: 10px;
+}
+
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 40%;
+  left: 30%;
+  width: 40%;
+  height: 40%;
+  background-color: rgba(0, 0, 0, 0.825);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal h3 {
+  font-family: "Dancing Script", cursive;
+  margin-top: 0;
+  color: #edde3d;
+  font-size: 1.8em;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.modal input[type="text"],
+.modal textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-family: "Merriweather", serif;
+  font-size: 1em;
+  color: #3e2723;
+  background-color: #fef9e7;
+}
+
+.modal label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  font-family: "Merriweather", serif;
+}
+
+.modal button[type="submit"] {
+  background-color: #fbc02d;
+  color: #3e2723;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 15px;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 1em;
+  font-family: "Merriweather", serif;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #888;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.modal-close:hover {
+  color: #333;
+}
+
+#noteForm button[type="submit"] {
+  background-color: #fbc02d;
+  color: #3e2723;
+  border: none;
+  padding: 12px 25px;
+  margin-top: 15px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 1.1em;
+  font-family: "Merriweather", serif;
+  cursor: pointer;
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.15), 0px 0px 0px 4px #fff9c4;
+  transition: background-color 0.3s ease, transform 0.2s ease,
+    box-shadow 0.2s ease;
+  display: inline-block;
+  position: relative;
+}
+
+#noteForm button[type="submit"]::before {
+  content: "+";
+  position: absolute;
+  left: -15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #fbc02d;
+  background-color: #3e2723;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+#noteForm button[type="submit"]:hover {
+  background-color: #f57f17;
+  transform: translateY(-2px);
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+#noteForm button[type="submit"]:active {
+  background-color: #f9a825;
+  transform: translateY(1px);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.login-container {
+  background-color: #fff9c4;
+  border: 4px solid #fbc02d;
+  border-radius: 10px;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 30px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+  text-align: center;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.login-form label {
+  font-family: "Merriweather", serif;
+  color: #333333;
+  text-align: left;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  background-color: #fef9e7;
+  font-family: "Merriweather", serif;
+  color: #3e2723;
+}
+
+.login-button {
+  background-color: #fbc02d;
+  color: #3e2723;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.3s ease, transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.login-button:hover {
+  background-color: #f57f17;
+  transform: translateY(-2px);
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.login-button:active {
+  background-color: #f9a825;
+  transform: translateY(1px);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.register-container {
+  background-color: #fff9c4;
+  border: 4px solid #fbc02d;
+  border-radius: 10px;
+  max-width: 400px;
+  width: 100%;
+  padding: 30px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+  text-align: center;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.register-form label {
+  font-family: "Merriweather", serif;
+  color: #333333;
+  text-align: left;
+  margin-bottom: 5px;
+}
+
+.register-form input[type="text"],
+.register-form input[type="password"] {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  background-color: #fef9e7;
+  font-family: "Merriweather", serif;
+  color: #3e2723;
+  margin-bottom: 10px;
+}
+
+.register-button {
+  background-color: #fbc02d;
+  color: #3e2723;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 20px;
+  font-weight: bold;
+  font-size: 1.1em;
+  cursor: pointer;
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.15), 0px 0px 0px 4px #fff9c4;
+  transition: background-color 0.3s ease, transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.register-button:hover {
+  background-color: #f57f17;
+  transform: translateY(-2px);
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.register-button:active {
+  background-color: #f9a825;
+  transform: translateY(1px);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.login-link {
+  margin-top: 20px;
+  font-family: "Merriweather", serif;
+  color: #3e2723;
+}
+
+.login-link a {
+  color: #f57f17;
+  text-decoration: none;
+  color: #333333;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}
+
+.error-message {
+  color: #b71c1c;
+  background-color: #ffccbc;
+  border: 1px solid #e57373;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
