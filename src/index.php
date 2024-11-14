@@ -1,4 +1,4 @@
-<?php
+<?php 
 require_once 'db.php';
 require_once 'User.php';
 require_once 'Note.php';
@@ -30,7 +30,6 @@ if ($action === 'add' && $title && $content) {
 $notes = $note->loadNotesByUser($username);
 ?>
 
-
 <!DOCTYPE html>
 <html lang="de">
 
@@ -38,17 +37,7 @@ $notes = $note->loadNotesByUser($username);
     <meta charset="UTF-8">
     <title>NotizY</title>
     <link rel="stylesheet" href="css/style.css">
-    <script type="module">
-        import {
-            openEditModal,
-            closeEditModal,
-            deleteNotec
-        } from './js/script.js';
-
-        window.openEditModal = openEditModal;
-        window.closeEditModal = closeEditModal;
-        window.deleteNote = deleteNote;
-    </script>
+    <script type="module" src="js/script.js"></script>
 </head>
 
 <body>
@@ -64,23 +53,16 @@ $notes = $note->loadNotesByUser($username);
 
     <div class="main-container">
         <div class="content-wrapper">
-
-
-
             <div id="noteForm" class="note-form-container">
-                <h2>Neue Notiz hinzufügen</h2><br>
-                <form method="post" action="index.php">
-                    <input type="hidden" name="action" value="add">
-                    <label for="title">Titel:</label><br><br>
-                    <div style="margin-bottom: 10px;">
-                        <label for="title"> Textgröße ändern:
-                        </label><br>
-                        <button type="button" onclick="adjustFormFontSize(2)">+</button>
-                        <button type="button" onclick="adjustFormFontSize(-2)">-</button>
-                    </div>
+                <h2 id="formHeader">Neue Notiz hinzufügen</h2>
+                <form id="mainNoteForm" method="post" action="index.php">
+                    <input type="hidden" name="action" value="add" id="formAction">
+                    <input type="hidden" name="noteId" id="formNoteId">
+                    <label for="title">Titel:</label>
                     <input type="text" name="title" id="title" required>
+                    <label for="content">Inhalt:</label>
                     <textarea name="content" id="content" required></textarea>
-                    <button type="submit">Notiz hinzufügen</button>
+                    <button type="submit" id="formSubmitButton">Notiz hinzufügen</button>
                 </form>
             </div>
 
@@ -93,7 +75,11 @@ $notes = $note->loadNotesByUser($username);
                             <p><?php echo nl2br(htmlspecialchars($note['Inhalt'])); ?></p>
                             <small><?php echo htmlspecialchars($note['date']); ?></small>
                             <div class="note-actions">
-                                <button type="button" onclick="openEditModal('<?php echo $note['ID']; ?>', '<?php echo htmlspecialchars($note['Titel'], ENT_QUOTES); ?>', '<?php echo htmlspecialchars($note['Inhalt'], ENT_QUOTES); ?>')">Bearbeiten</button>
+                                <button type="button" onclick="editNote(
+                                    '<?php echo $note['ID']; ?>',
+                                    '<?php echo htmlspecialchars($note['Titel'], ENT_QUOTES); ?>',
+                                    '<?php echo htmlspecialchars($note['Inhalt'], ENT_QUOTES); ?>'
+                                )">Bearbeiten</button>
                                 <form method="post" action="index.php" class="delete-note-form">
                                     <input type="hidden" name="action" value="delete">
                                     <input type="hidden" name="noteId" value="<?php echo $note['ID']; ?>">
@@ -109,34 +95,9 @@ $notes = $note->loadNotesByUser($username);
         </div>
     </div>
 
-    <script>
-        function adjustFormFontSize(change) {
-            const contentArea = document.getElementById("content");
-            let currentFontSize = parseFloat(window.getComputedStyle(contentArea).fontSize);
-            contentArea.style.fontSize = (currentFontSize + change) + "px";
-        }
-    </script>
-
-
-    <div id="editModalOverlay" class="modal-overlay">
-        <div class="modal">
-            <span class="modal-close" onclick="closeEditModal()">&times;</span>
-            <h3>Notiz bearbeiten</h3>
-            <form id="editNoteForm">
-                <input type="hidden" id="editNoteId" name="noteId">
-                <label for="editTitle">Titel:</label>
-                <input type="text" id="editTitle" name="title" required>
-                <label for="editContent">Inhalt:</label>
-                <textarea id="editContent" name="content" required></textarea>
-                <button type="submit" class="edit-button">Speichern</button>
-            </form>
-        </div>
-    </div>
-
     <footer>
-        <p>NotizY © 2024 </p>
+        <p>NotizY © 2024</p>
     </footer>
-
 </body>
 
 </html>

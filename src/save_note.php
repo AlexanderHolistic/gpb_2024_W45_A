@@ -19,20 +19,14 @@ $noteId = isset($_POST['note_id']) ? intval($_POST['note_id']) : 0;
 
 if ($action === 'create') {
     if (!empty($title) && !empty($content)) {
-        if ($noteModel->createNote($username, $title, $content)) {
-            echo 'success';
-        }
+        echo $noteModel->createNote($username, $title, $content) ? 'success' : 'error';
     }
 } elseif ($action === 'update') {
     if (!empty($title) && !empty($content) && $noteId > 0) {
-        if ($noteModel->updateNote($noteId, $title, $content)) {
-            echo 'updated';
-        }
+        echo $noteModel->updateNote($noteId, $title, $content) ? 'updated' : 'error';
     }
 } elseif ($action === 'delete') {
     if ($noteId > 0) {
-        if ($noteModel->deleteNote($noteId)) {
-            echo 'deleted';
-        }
+        echo $noteModel->deleteNote($noteId) ? 'deleted' : 'error';
     }
 }
