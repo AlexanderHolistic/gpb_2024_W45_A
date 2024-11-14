@@ -2,6 +2,14 @@
 
 Übungsprojekt GPB 125-129 Blau
 
+Alles funktioniert, keine Bugs etc. Session, bearbeitec i.O.
+
+script.js und index wurde nochmal gepusht.
+
+
+
+
+
 
 //new form index.php
 
