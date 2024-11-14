@@ -2,7 +2,7 @@
 
 Übungsprojekt GPB 125-129 Blau
 
-Alles funktioniert, keine Bugs etc. Session, bearbeitec i.O.
+Alles funktioniert, keine Bugs etc. Session, Button Bearbeiten i.O.
 
 Kein Modal - popup Window, session wurde repariert, kein Alert beim Löschen.
 
