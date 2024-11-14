@@ -1,4 +1,4 @@
-<?php 
+<?php
 require_once 'db.php';
 require_once 'User.php';
 require_once 'Note.php';
@@ -21,11 +21,18 @@ $noteId = $_POST['noteId'] ?? null;
 
 if ($action === 'add' && $title && $content) {
     $note->createNote($username, $title, $content);
+    header('Location: index.php');
+    exit;
 } elseif ($action === 'update' && $noteId && $title && $content) {
     $note->updateNote($noteId, $title, $content);
+    header('Location: index.php');
+    exit;
 } elseif ($action === 'delete' && $noteId) {
     $note->deleteNote($noteId);
+    header('Location: index.php');
+    exit;
 }
+
 
 $notes = $note->loadNotesByUser($username);
 ?>
@@ -58,9 +65,7 @@ $notes = $note->loadNotesByUser($username);
                 <form id="mainNoteForm" method="post" action="index.php">
                     <input type="hidden" name="action" value="add" id="formAction">
                     <input type="hidden" name="noteId" id="formNoteId">
-                    <label for="title">Titel:</label>
                     <input type="text" name="title" id="title" required>
-                    <label for="content">Inhalt:</label>
                     <textarea name="content" id="content" required></textarea>
                     <button type="submit" id="formSubmitButton">Notiz hinzufügen</button>
                 </form>
@@ -83,7 +88,7 @@ $notes = $note->loadNotesByUser($username);
                                 <form method="post" action="index.php" class="delete-note-form">
                                     <input type="hidden" name="action" value="delete">
                                     <input type="hidden" name="noteId" value="<?php echo $note['ID']; ?>">
-                                    <button type="submit" onclick="return confirm('Möchten Sie diese Notiz wirklich löschen?')">Löschen</button>
+                                    <button type="submit">Löschen</button>
                                 </form>
                             </div>
                         </div>
