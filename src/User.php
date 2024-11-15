@@ -13,7 +13,7 @@ class User
         }
 
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $stmt = $db->prepare('INSERT INTO User (username, password) VALUES (?, ?)');
+        $stmt = $db->prepare('INSERT INTO user (Username, Password) VALUES (?, ?)');
         $stmt->bind_param('ss', $username, $hashedPassword);
         $success = $stmt->execute();
         $stmt->close();
@@ -27,7 +27,7 @@ class User
         $id = null;
         $hashedPassword = null;
 
-        $stmt = $db->prepare('SELECT ID, password FROM User WHERE username = ?');
+        $stmt = $db->prepare('SELECT ID, Password FROM user WHERE Username = ?');
         $stmt->bind_param('s', $username);
         $stmt->execute();
         $stmt->bind_result($id, $hashedPassword);
@@ -66,7 +66,7 @@ class User
     {
         global $db;
 
-        $stmt = $db->prepare('SELECT ID FROM User WHERE username = ?');
+        $stmt = $db->prepare('SELECT ID FROM user WHERE Username = ?');
         $stmt->bind_param('s', $username);
         $stmt->execute();
         $stmt->store_result();
